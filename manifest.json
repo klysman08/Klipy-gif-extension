@@ -1,0 +1,18 @@
+{
+    "manifest_version": 3,
+    "name": "Image Search Extension",
+    "version": "1.0",
+    "description": "Search for images without leaving the page.",
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "icons": {
+      "16": "images/icon16.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    },
+    "permissions": [
+      "activeTab"
+    ]
+  }
+  
