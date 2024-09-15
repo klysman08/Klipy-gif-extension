@@ -20,6 +20,29 @@ body.dark-mode {
     height: 80px;
     object-fit: cover;
     cursor: pointer;
+    position: relative;
+}
+
+.gif-container {
+    position: relative;
+    display: inline-block;
+}
+
+.favorite-button {
+    display: none;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 2px 5px;
+    cursor: pointer;
+}
+
+.gif-container:hover .favorite-button {
+    display: block;
 }
 
 input {
@@ -69,4 +92,18 @@ button {
   font-family: "Kanit", sans-serif;
   font-weight: 500;
   font-style: normal;
+}
+
+#favoritesButton {
+    padding: 5px;
+    margin-bottom: 10px;
+    font-family: "Kanit", sans-serif;
+    border-radius: 5px;
+}
+
+#favoritesResults img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    cursor: pointer;
 }

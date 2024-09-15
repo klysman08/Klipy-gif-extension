@@ -18,6 +18,10 @@ document.getElementById('modeToggle').addEventListener('click', function() {
     toggleMode();
 });
 
+document.getElementById('favoritesButton').addEventListener('click', function() {
+    toggleFavorites();
+});
+
 function initiateSearch() {
     currentQuery = document.getElementById('searchQuery').value;
     currentPage = 1;  // Reset to the first page
@@ -54,11 +58,26 @@ function displayGIFs(data, isNewSearch) {
     }
 
     data.results.forEach(gif => {
+        const gifContainer = document.createElement('div');
+        gifContainer.className = 'gif-container';
+
         const gifElement = document.createElement('img');
         gifElement.src = gif.media_formats.tinygif.url;
         gifElement.alt = gif.title;
         gifElement.style.margin = '10px';
-        gifResults.appendChild(gifElement);
+
+        const favoriteButton = document.createElement('button');
+        favoriteButton.className = 'favorite-button';
+        favoriteButton.innerText = isFavorite(gif) ? '❤️' : '♡';
+        favoriteButton.addEventListener('click', (event) => {
+            event.stopPropagation();  // Prevent triggering the gif click event
+            toggleFavorite(gif);
+            favoriteButton.innerText = isFavorite(gif) ? '❤️' : '♡';
+        });
+
+        gifContainer.appendChild(gifElement);
+        gifContainer.appendChild(favoriteButton);
+        gifResults.appendChild(gifContainer);
     });
 
     // Update nextPos to the next position for fetching new results
@@ -66,6 +85,76 @@ function displayGIFs(data, isNewSearch) {
 
     // Save current state to localStorage
     saveState();
+}
+
+function toggleFavorite(gif) {
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const index = favorites.findIndex(fav => fav.id === gif.id);
+    if (index > -1) {
+        favorites.splice(index, 1);
+    } else {
+        favorites.push(gif);
+    }
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+}
+
+function isFavorite(gif) {
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    return favorites.some(fav => fav.id === gif.id);
+}
+
+function addToFavorites(gif) {
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    favorites.push(gif);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+}
+
+function toggleFavorites() {
+    const favoritesResults = document.getElementById('favoritesResults');
+    const gifResults = document.getElementById('gifResults');
+    if (favoritesResults.style.display === 'none') {
+        favoritesResults.style.display = 'block';
+        gifResults.style.display = 'none';
+        displayFavorites();
+    } else {
+        favoritesResults.style.display = 'none';
+        gifResults.style.display = 'block';
+    }
+}
+
+function displayFavorites() {
+    const favoritesResults = document.getElementById('favoritesResults');
+    favoritesResults.innerHTML = '';  // Clear previous results
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    favorites.forEach(gif => {
+        const gifContainer = document.createElement('div');
+        gifContainer.className = 'gif-container';
+
+        const gifElement = document.createElement('img');
+        gifElement.src = gif.media_formats.tinygif.url;
+        gifElement.alt = gif.title;
+        gifElement.style.margin = '10px';
+
+        const favoriteButton = document.createElement('button');
+        favoriteButton.className = 'favorite-button';
+        favoriteButton.innerText = isFavorite(gif) ? '❤️' : '♡';
+        favoriteButton.addEventListener('click', (event) => {
+            event.stopPropagation();  // Prevent triggering the gif click event
+            toggleFavorite(gif);
+            favoriteButton.innerText = isFavorite(gif) ? '❤️' : '♡';
+        });
+
+        gifContainer.appendChild(gifElement);
+        gifContainer.appendChild(favoriteButton);
+        favoritesResults.appendChild(gifContainer);
+    });
+}
+
+function removeFromFavorites(index) {
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    favorites.splice(index, 1);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    displayFavorites();  // Refresh the favorites display
 }
 
 function cacheData(key, data) {
