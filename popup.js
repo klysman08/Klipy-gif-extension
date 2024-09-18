@@ -1,26 +1,16 @@
 let currentPage = 1;
 let currentQuery = '';
 let nextPos = 0;  // Track the position for the next set of results
-// 1 day
-const cacheDuration = 1000 * 60 * 60 * 24;
+const cacheDuration = 1000 * 60 * 60 * 24; // 1 day
 
-document.getElementById('searchButton').addEventListener('click', function() {
-    initiateSearch();
-});
-
+document.getElementById('searchButton').addEventListener('click', debounce(initiateSearch, 300));
 document.getElementById('searchQuery').addEventListener('keypress', function(event) {
     if (event.key === 'Enter') {
-        initiateSearch();
+        debounce(initiateSearch, 300)();
     }
 });
-
-document.getElementById('modeToggle').addEventListener('click', function() {
-    toggleMode();
-});
-
-document.getElementById('favoritesButton').addEventListener('click', function() {
-    toggleFavorites();
-});
+document.getElementById('modeToggle').addEventListener('click', toggleMode);
+document.getElementById('favoritesButton').addEventListener('click', toggleFavorites);
 
 function initiateSearch() {
     currentQuery = document.getElementById('searchQuery').value;
@@ -49,6 +39,14 @@ function searchGIFs(query, page, isNewSearch = false) {
             })
             .catch(error => console.error('Error fetching GIFs:', error));
     }
+}
+
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
 }
 
 function displayGIFs(data, isNewSearch) {

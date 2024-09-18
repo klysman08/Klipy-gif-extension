@@ -21,6 +21,7 @@ body.dark-mode {
     object-fit: cover;
     cursor: pointer;
     position: relative;
+    border-radius: 10px;
 }
 
 .gif-container {
