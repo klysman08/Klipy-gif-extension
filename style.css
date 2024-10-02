@@ -15,6 +15,25 @@ body.dark-mode {
     color: white;
 }
 
+/* Adicione um seletor específico para o popup */
+html[popup] body {
+    width: 300px;
+    padding: 10px;
+    font-family: "Kanit", sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Mantenha as regras de light-mode e dark-mode */
+html[popup] body.light-mode {
+    background-color: white;
+    color: black;
+}
+
+html[popup] body.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
 #gifResults img {
     width: 80px;
     height: 80px;
