@@ -20,22 +20,15 @@
         "activeTab",
         "storage" 
     ],
-    "content_scripts": [
-        {
-            "matches": ["<all_urls>"],
-            "js": ["popup.js"],
-            "css": ["style.css"]
-        }
-    ],
     "host_permissions": [
-        "https://tenor.googleapis.com/*"  
+        "https://tenor.googleapis.com/*"
     ],
     "web_accessible_resources": [
         {
             "resources": ["images/*"],
             "matches": ["<all_urls>"]
         }
-    ], 
+    ],
     "commands": {
         "_execute_action": {
             "suggested_key": {

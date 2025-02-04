@@ -63,6 +63,10 @@ function displayGIFs(data, isNewSearch) {
         gifElement.src = gif.media_formats.tinygif.url;
         gifElement.alt = gif.title;
         gifElement.style.margin = '10px';
+        gifElement.addEventListener('click', () => {
+            const bigUrl = gif.media_formats.gif ? gif.media_formats.gif.url : gif.media_formats.tinygif.url;
+            openModal(bigUrl);
+        });
 
         const favoriteButton = document.createElement('button');
         favoriteButton.className = 'favorite-button';
@@ -206,6 +210,22 @@ window.addEventListener('scroll', () => {
         currentPage++;
         searchGIFs(currentQuery, currentPage);
     }
+});
+
+function openModal(url) {
+    const modal = document.getElementById('gifModal');
+    const modalImg = document.getElementById('modalImg');
+    modalImg.src = url;
+    modal.style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('gifModal').style.display = 'none';
+}
+
+// Add event listener for closing the modal
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('closeModal').addEventListener('click', closeModal);
 });
 
 // Load the previous state when the popup is opened
