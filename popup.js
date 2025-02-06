@@ -125,33 +125,39 @@ function toggleFavorites() {
 }
 
 function displayFavorites() {
-    const favoritesResults = document.getElementById('favoritesResults');
-    favoritesResults.innerHTML = '';  // Clear previous results
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    favorites.forEach(gif => {
-        const gifContainer = document.createElement('div');
-        gifContainer.className = 'gif-container';
+        const favoritesResults = document.getElementById('favoritesResults');
+        favoritesResults.innerHTML = '';  // Clear previous results
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        favorites.forEach(gif => {
+            const gifContainer = document.createElement('div');
+            gifContainer.className = 'gif-container';
 
-        const gifElement = document.createElement('img');
-        gifElement.src = gif.media_formats.tinygif.url;
-        gifElement.alt = gif.title;
-        gifElement.style.margin = '10px';
+            const gifElement = document.createElement('img');
+            gifElement.src = gif.media_formats.tinygif.url;
+            gifElement.alt = gif.title;
+            gifElement.style.margin = '10px';
+            // Add the click event listener to open the modal, using a fallback order.
+            gifElement.addEventListener('click', () => {
+                const bigUrl = (gif.media_formats.gif && gif.media_formats.gif.url) ||
+                               (gif.media_formats.mp4 && gif.media_formats.mp4.url) ||
+                               gif.media_formats.tinygif.url;
+                openModal(bigUrl);
+            });
 
-        const favoriteButton = document.createElement('button');
-        favoriteButton.className = 'favorite-button';
-        favoriteButton.innerText = isFavorite(gif) ? '❤️' : '♡';
-        favoriteButton.addEventListener('click', (event) => {
-            event.stopPropagation();  // Prevent triggering the gif click event
-            toggleFavorite(gif);
+            const favoriteButton = document.createElement('button');
+            favoriteButton.className = 'favorite-button';
             favoriteButton.innerText = isFavorite(gif) ? '❤️' : '♡';
+            favoriteButton.addEventListener('click', (event) => {
+                event.stopPropagation();  // Prevent triggering the gif click event
+                toggleFavorite(gif);
+                favoriteButton.innerText = isFavorite(gif) ? '❤️' : '♡';
+            });
+
+            gifContainer.appendChild(gifElement);
+            gifContainer.appendChild(favoriteButton);
+            favoritesResults.appendChild(gifContainer);
         });
-
-        gifContainer.appendChild(gifElement);
-        gifContainer.appendChild(favoriteButton);
-        favoritesResults.appendChild(gifContainer);
-    });
 }
-
 function removeFromFavorites(index) {
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     favorites.splice(index, 1);
