@@ -1,7 +1,9 @@
 {
     "manifest_version": 3,
-    "name": "Image Search Extension",
-    "version": "1.0",
+    "name": "Gif search Extension",
+    "author": "Klysman08",
+    "homepage_url": "https://github.com/Klysman08",
+    "version": "2.0",
     "description": "Search for images without leaving the page.",
     "action": {
         "default_popup": "popup.html",

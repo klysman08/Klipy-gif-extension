@@ -1,155 +1,242 @@
-body {
-    width: 300px;
-    padding: 10px;
-    font-family: "Kanit", sans-serif;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-body.light-mode {
-    background-color: white;
-    color: black;
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --input-bg: #f0f0f0;
+  --input-border: #cccccc;
+  --btn-bg: #e0e0e0;
+  --btn-hover: #d0d0d0;
+  --modal-bg: rgba(0, 0, 0, 0.8);
+  --modal-content-bg: #ffffff;
+  --accent-color: #ff4b4b;
 }
 
 body.dark-mode {
-    background-color: #121212;
-    color: white;
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --input-bg: #2c2c2c;
+  --input-border: #444444;
+  --btn-bg: #333333;
+  --btn-hover: #444444;
+  --modal-bg: rgba(0, 0, 0, 0.9);
+  --modal-content-bg: #1e1e1e;
 }
 
-/* Adicione um seletor específico para o popup */
+body {
+  width: 350px;
+  min-height: 400px;
+  margin: 0;
+  padding: 15px;
+  font-family: "Kanit", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
 html[popup] body {
-    width: 300px;
-    padding: 10px;
-    font-family: "Kanit", sans-serif;
-    transition: background-color 0.3s, color 0.3s;
+  width: 350px;
+  padding: 15px;
 }
 
-/* Mantenha as regras de light-mode e dark-mode */
-html[popup] body.light-mode {
-    background-color: white;
-    color: black;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 10px;
 }
 
-html[popup] body.dark-mode {
-    background-color: #121212;
-    color: white;
+.search-container {
+  display: flex;
+  flex-grow: 1;
+  position: relative;
 }
 
-#gifResults img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    cursor: pointer;
-    position: relative;
-    border-radius: 10px;
+#searchQuery {
+  width: 100%;
+  padding: 8px 35px 8px 12px;
+  border: 1px solid var(--input-border);
+  border-radius: 20px;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  font-family: "Kanit", sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#searchQuery:focus {
+  border-color: var(--accent-color);
+}
+
+#searchButton {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.controls {
+  display: flex;
+  gap: 5px;
+}
+
+.icon-btn {
+  background-color: var(--btn-bg);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.icon-btn:hover {
+  background-color: var(--btn-hover);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  justify-content: center;
 }
 
 .gif-container {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  background-color: var(--input-bg);
+}
+
+.gif-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.gif-container:hover img {
+  transform: scale(1.05);
 }
 
 .favorite-button {
-    display: none;
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    border-radius: 3px;
-    padding: 2px 5px;
-    cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
-.gif-container:hover .favorite-button {
-    display: block;
+.gif-container:hover .favorite-button,
+.favorite-button.active {
+  opacity: 1;
 }
 
-input {
-    width: 200px;
-    padding: 5px;
-    margin-bottom: 10px;
-    font-family: "Kanit", sans-serif;
-    border-radius: 5px;
+.hidden {
+  display: none !important;
 }
 
-button {
-    padding: 5px;
-    margin-bottom: 10px;
-    font-family: "Kanit", sans-serif;
-    border-radius: 5px;
-}
-
-#modeToggle {
-    margin-bottom: 10px;
-}
-
-.kanit-thin {
-  font-family: "Kanit", sans-serif;
-  font-weight: 100;
-  font-style: normal;
-}
-
-.kanit-extralight {
-  font-family: "Kanit", sans-serif;
-  font-weight: 200;
-  font-style: normal;
-}
-
-.kanit-light {
-  font-family: "Kanit", sans-serif;
-  font-weight: 300;
-  font-style: normal;
-}
-
-.kanit-regular {
-  font-family: "Kanit", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.kanit-medium {
-  font-family: "Kanit", sans-serif;
-  font-weight: 500;
-  font-style: normal;
-}
-
-#favoritesButton {
-    padding: 5px;
-    margin-bottom: 10px;
-    font-family: "Kanit", sans-serif;
-    border-radius: 5px;
-}
-
-#favoritesResults img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    cursor: pointer;
+#loadingIndicator, #emptyState {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-color);
+  opacity: 0.7;
 }
 
 /* Modal styling */
-#gifModal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.8);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--modal-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
-#gifModal img {
-    max-width: 90%;
-    max-height: 90%;
+
+.modal-content {
+  position: relative;
+  background-color: var(--modal-content-bg);
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 }
-#closeModal {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 30px;
-    color: white;
-    cursor: pointer;
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 60vh;
+  border-radius: 8px;
+  object-fit: contain;
 }
+
+.close-btn {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background-color: var(--accent-color);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.action-btn {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: "Kanit", sans-serif;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.action-btn:hover {
+  background-color: #e03e3e;
+}
+
+/* Typography classes */
+.kanit-thin { font-weight: 100; }
+.kanit-extralight { font-weight: 200; }
+.kanit-light { font-weight: 300; }
+.kanit-regular { font-weight: 400; }
+.kanit-medium { font-weight: 500; }
