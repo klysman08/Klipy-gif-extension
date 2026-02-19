@@ -19,10 +19,14 @@
     <div class="controls">
       <button id="favoritesButton" class="icon-btn" aria-label="Favorites">❤️</button>
       <button id="modeToggle" class="icon-btn" aria-label="Toggle Theme">🌓</button>
+      <button id="settingsButton" class="icon-btn" aria-label="Settings">⚙️</button>
     </div>
   </header>
 
   <main>
+    <div id="apiKeyWarning" class="hidden" style="text-align: center; padding: 20px; color: var(--accent-color);">
+      Please configure your Tenor API Key in the <a href="#" id="openSettingsLink" style="color: var(--text-color); text-decoration: underline;">settings</a>.
+    </div>
     <div id="loadingIndicator" class="hidden">Loading...</div>
     <div id="emptyState" class="hidden">No GIFs found. Try another search!</div>
     <div id="gifResults" class="grid-container"></div>

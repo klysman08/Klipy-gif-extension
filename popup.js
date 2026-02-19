@@ -17,7 +17,10 @@ const elements = {
     gifModal: document.getElementById('gifModal'),
     modalImg: document.getElementById('modalImg'),
     closeModal: document.getElementById('closeModal'),
-    copyLinkBtn: document.getElementById('copyLinkBtn')
+    copyLinkBtn: document.getElementById('copyLinkBtn'),
+    settingsButton: document.getElementById('settingsButton'),
+    apiKeyWarning: document.getElementById('apiKeyWarning'),
+    openSettingsLink: document.getElementById('openSettingsLink')
 };
 
 // Event Listeners
@@ -29,6 +32,11 @@ elements.modeToggle.addEventListener('click', toggleMode);
 elements.favoritesButton.addEventListener('click', toggleFavorites);
 elements.closeModal.addEventListener('click', closeModal);
 elements.copyLinkBtn.addEventListener('click', copyGifLink);
+elements.settingsButton.addEventListener('click', () => chrome.runtime.openOptionsPage());
+elements.openSettingsLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    chrome.runtime.openOptionsPage();
+});
 
 window.addEventListener('scroll', () => {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50 && !isLoading && currentQuery) {
@@ -71,7 +79,19 @@ async function searchGIFs(query, page, isNewSearch = false) {
         elements.loadingIndicator.classList.add('hidden');
     } else {
         try {
-            const apiKey = config.apiKey;
+            // Get API key from storage, fallback to config.js if not set
+            const items = await chrome.storage.sync.get({ tenorApiKey: '' });
+            const apiKey = items.tenorApiKey || config.apiKey;
+            
+            if (!apiKey) {
+                elements.apiKeyWarning.classList.remove('hidden');
+                isLoading = false;
+                elements.loadingIndicator.classList.add('hidden');
+                return;
+            } else {
+                elements.apiKeyWarning.classList.add('hidden');
+            }
+
             const url = `https://tenor.googleapis.com/v2/search?q=${encodeURIComponent(query)}&key=${apiKey}&limit=20&pos=${nextPos}`;
 
             const response = await fetch(url);

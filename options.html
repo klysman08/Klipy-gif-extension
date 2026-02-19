@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tenor Extension Options</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .options-container {
+      background-color: var(--input-bg);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: var(--text-color);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 15px;
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: "Kanit", sans-serif;
+      box-sizing: border-box;
+    }
+    .btn-primary {
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: "Kanit", sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      transition: background-color 0.2s;
+    }
+    .btn-primary:hover {
+      background-color: #e03e3e;
+    }
+    #status {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 8px;
+      display: none;
+    }
+    .status-success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      display: block !important;
+    }
+    .status-error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      display: block !important;
+    }
+    .help-text {
+      font-size: 14px;
+      color: #666;
+      margin-top: 5px;
+    }
+    body.dark-mode .help-text {
+      color: #aaa;
+    }
+  </style>
+</head>
+<body class="light-mode">
+  <div class="options-container">
+    <h1>Extension Settings</h1>
+    
+    <div class="form-group">
+      <label for="apiKey">Tenor API Key</label>
+      <input type="text" id="apiKey" placeholder="Enter your Tenor API Key">
+      <div class="help-text">
+        You can get a free API key from the <a href="https://developers.google.com/tenor/guides/quickstart" target="_blank">Tenor Developer Portal</a>.
+      </div>
+    </div>
+    
+    <button id="saveBtn" class="btn-primary">Save Settings</button>
+    
+    <div id="status"></div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
