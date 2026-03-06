@@ -27,7 +27,7 @@
         "storage" 
     ],
     "host_permissions": [
-        "https://tenor.googleapis.com/*"
+        "https://api.klipy.com/*"
     ],
     "web_accessible_resources": [
         {

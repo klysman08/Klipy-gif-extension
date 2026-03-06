@@ -80,8 +80,8 @@ async function searchGIFs(query, page, isNewSearch = false) {
     } else {
         try {
             // Get API key from storage, fallback to config.js if not set
-            const items = await chrome.storage.sync.get({ tenorApiKey: '' });
-            const apiKey = items.tenorApiKey || config.apiKey;
+            const items = await chrome.storage.sync.get({ klipyApiKey: '' });
+            const apiKey = items.klipyApiKey || config.apiKey;
             
             if (!apiKey) {
                 elements.apiKeyWarning.classList.remove('hidden');
@@ -92,7 +92,7 @@ async function searchGIFs(query, page, isNewSearch = false) {
                 elements.apiKeyWarning.classList.add('hidden');
             }
 
-            const url = `https://tenor.googleapis.com/v2/search?q=${encodeURIComponent(query)}&key=${apiKey}&limit=20&pos=${nextPos}`;
+            const url = `https://api.klipy.com/v2/search?q=${encodeURIComponent(query)}&key=${apiKey}&limit=20&pos=${nextPos}`;
 
             const response = await fetch(url);
             const data = await response.json();

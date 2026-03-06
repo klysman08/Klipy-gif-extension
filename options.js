@@ -28,7 +28,7 @@ function saveOptions() {
 
     // Save to chrome.storage.sync
     chrome.storage.sync.set({
-        tenorApiKey: apiKey
+        klipyApiKey: apiKey
     }, function() {
         showStatus('Settings saved successfully!', 'success');
         
@@ -45,9 +45,9 @@ function restoreOptions() {
     
     // Load from chrome.storage.sync
     chrome.storage.sync.get({
-        tenorApiKey: '' // Default value
+        klipyApiKey: '' // Default value
     }, function(items) {
-        document.getElementById('apiKey').value = items.tenorApiKey;
+        document.getElementById('apiKey').value = items.klipyApiKey;
     });
 }
 

@@ -1,4 +1,4 @@
 
 const config = {
-    apiKey: 'AIzaSyDfzPgL2mIc3o-v_JdKE27PAg9WiIa_Poo'
+    apiKey: '' // Set your Klipy API key here or via the extension settings
 };
