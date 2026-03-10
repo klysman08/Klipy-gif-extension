@@ -4,13 +4,31 @@ document.addEventListener('DOMContentLoaded', restoreOptions);
 // Save options when the save button is clicked
 document.getElementById('saveBtn').addEventListener('click', saveOptions);
 
-// Apply dark mode if it was set in the popup
+// Theme toggle on options page
+document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
+function toggleTheme() {
+    const isDark = document.body.classList.toggle('dark-mode');
+    document.body.classList.toggle('light-mode', !isDark);
+    document.getElementById('themeToggle').innerText = isDark ? '☀️' : '🌓';
+
+    // Sync theme preference with popup state
+    try {
+        const state = JSON.parse(localStorage.getItem('gifSearchState')) || {};
+        state.mode = isDark ? 'dark' : 'light';
+        localStorage.setItem('gifSearchState', JSON.stringify(state));
+    } catch (e) {
+        console.warn('Could not sync theme state');
+    }
+}
+
 function applyTheme() {
     try {
         const state = JSON.parse(localStorage.getItem('gifSearchState'));
         if (state && state.mode === 'dark') {
             document.body.classList.remove('light-mode');
             document.body.classList.add('dark-mode');
+            document.getElementById('themeToggle').innerText = '☀️';
         }
     } catch (e) {
         console.warn('Could not load theme state');
@@ -19,21 +37,19 @@ function applyTheme() {
 
 function saveOptions() {
     const apiKey = document.getElementById('apiKey').value.trim();
-    const statusEl = document.getElementById('status');
 
     if (!apiKey) {
         showStatus('Please enter an API key.', 'error');
         return;
     }
 
-    // Save to chrome.storage.sync
     chrome.storage.sync.set({
         klipyApiKey: apiKey
-    }, function() {
-        showStatus('Settings saved successfully!', 'success');
-        
-        // Clear the status message after 3 seconds
-        setTimeout(function() {
+    }, function () {
+        showStatus('✅ Settings saved successfully!', 'success');
+
+        setTimeout(function () {
+            const statusEl = document.getElementById('status');
             statusEl.className = '';
             statusEl.style.display = 'none';
         }, 3000);
@@ -42,11 +58,10 @@ function saveOptions() {
 
 function restoreOptions() {
     applyTheme();
-    
-    // Load from chrome.storage.sync
+
     chrome.storage.sync.get({
-        klipyApiKey: '' // Default value
-    }, function(items) {
+        klipyApiKey: ''
+    }, function (items) {
         document.getElementById('apiKey').value = items.klipyApiKey;
     });
 }
