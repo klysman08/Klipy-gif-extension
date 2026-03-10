@@ -91,6 +91,8 @@ TenorExtension/
 │   ├── icon16.png      # Toolbar icon (16×16)
 │   ├── icon48.png      # Extensions page icon (48×48)
 │   └── icon128.png     # Chrome Web Store icon (128×128)
+├── docs/
+│   └── index.html      # Landing page (GitHub Pages)
 ├── LICENSE             # MIT License
 ├── CONTRIBUTING.md     # Contribution guidelines
 ├── CODE_OF_CONDUCT.md  # Contributor Covenant
