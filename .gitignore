@@ -1,0 +1,30 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Build artifacts
+*.zip
+*.crx
+*.pem
+
+# Environment
+.env
+.env.local
+
+# Agent / AI tooling
+.gemini/
+.agent/
+tasks/
