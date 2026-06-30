@@ -1,3 +1,34 @@
+// ===== Chrome Extension API Mock for local browser testing =====
+if (typeof chrome === 'undefined') {
+    window.chrome = {
+        storage: {
+            sync: {
+                get: function(defaults, callback) {
+                    const keys = Object.keys(defaults);
+                    const result = {};
+                    keys.forEach(key => {
+                        result[key] = localStorage.getItem(key) || defaults[key];
+                    });
+                    if (callback) callback(result);
+                    return Promise.resolve(result);
+                },
+                set: function(values, callback) {
+                    Object.keys(values).forEach(key => {
+                        localStorage.setItem(key, values[key]);
+                    });
+                    if (callback) callback();
+                    return Promise.resolve();
+                }
+            }
+        },
+        runtime: {
+            openOptionsPage: function() {
+                window.open('options.html', '_blank');
+            }
+        }
+    };
+}
+
 // Load saved options when the page loads
 document.addEventListener('DOMContentLoaded', restoreOptions);
 
@@ -10,7 +41,6 @@ document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 function toggleTheme() {
     const isDark = document.body.classList.toggle('dark-mode');
     document.body.classList.toggle('light-mode', !isDark);
-    document.getElementById('themeToggle').innerText = isDark ? '☀️' : '🌓';
 
     // Sync theme preference with popup state
     try {
@@ -28,7 +58,6 @@ function applyTheme() {
         if (state && state.mode === 'dark') {
             document.body.classList.remove('light-mode');
             document.body.classList.add('dark-mode');
-            document.getElementById('themeToggle').innerText = '☀️';
         }
     } catch (e) {
         console.warn('Could not load theme state');

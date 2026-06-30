@@ -3,7 +3,7 @@
 
 <head>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Kanit:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,30 +17,67 @@
     <div class="search-container">
       <input type="text" id="searchQuery" placeholder="Search GIFs..." autocomplete="off">
       <button id="searchButton" aria-label="Search">
-        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"
-          stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        <svg class="pixel-icon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+          <path d="M6 2h4v1H6zm4 1h1v1h-1zm1 1h1v3h-1zm-1 3h-1v1H6zm-1 1H4V8h2zm-2-1H3V4h1zm-1-3H2V3h1zm5-1V2H4v5h5V3z" />
+          <path d="M9 9h2v2H9zm2 2h2v2h-2zm2 2h2v2h-2z" />
         </svg>
       </button>
     </div>
     <div class="controls">
-      <button id="favoritesButton" class="icon-btn" aria-label="Favorites">❤️</button>
-      <button id="modeToggle" class="icon-btn" aria-label="Toggle Theme">🌓</button>
-      <button id="settingsButton" class="icon-btn" aria-label="Settings">⚙️</button>
+      <button id="favoritesButton" class="icon-btn" aria-label="Favorites">
+        <svg class="pixel-icon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+          <path d="M2 3h3v1H2zm3-1h2v1H5zm2 1h2v1H7zm2-1h2v1H9zm2 1h3v1h-3zm2 1h1v3h-1zm-1 3h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1H9zm-2 0h2v1H7zm-2-1h2v1H5zm-1-1h1v1H4zm-1-1h1v1H3zm-1-1h1v1H2zm-1-3h1v3H1zm0-3h1v3H1zm1-1h1v1H2z" />
+        </svg>
+      </button>
+      <button id="modeToggle" class="icon-btn" aria-label="Toggle Theme">
+        <svg class="pixel-icon sun-icon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+           <rect x="6" y="1" width="4" height="2"/><rect x="1" y="6" width="2" height="4"/><rect x="13" y="6" width="2" height="4"/><rect x="6" y="13" width="4" height="2"/><rect x="4" y="4" width="8" height="8"/><rect x="3" y="3" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="3" y="12" width="1" height="1"/><rect x="12" y="12" width="1" height="1"/>
+        </svg>
+        <svg class="pixel-icon moon-icon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+           <path d="M5 1h5v1H5v2H3v2H2v4h1v2h2v1h5v-1H7v-1H5v-2H4V6h1V4h2V2h3V1h-5zm6 2h1v8h-1V3z"/>
+        </svg>
+      </button>
+      <button id="settingsButton" class="icon-btn" aria-label="Settings">
+        <svg class="pixel-icon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+          <rect x="7" y="0" width="2" height="2" />
+          <rect x="7" y="14" width="2" height="2" />
+          <rect x="0" y="7" width="2" height="2" />
+          <rect x="14" y="7" width="2" height="2" />
+          <rect x="2" y="2" width="2" height="2" />
+          <rect x="12" y="2" width="2" height="2" />
+          <rect x="2" y="12" width="2" height="2" />
+          <rect x="12" y="12" width="2" height="2" />
+          <path d="M5 3h6v10H5z" />
+          <path d="M3 5h10v6H3z" />
+          <rect x="7" y="7" width="2" height="2" fill="var(--surface-color)" />
+        </svg>
+      </button>
     </div>
   </header>
 
   <!-- Tab Bar -->
   <nav class="tab-bar">
     <button class="tab-btn active" id="tabSearch" data-tab="search">
-      <span class="tab-icon">🔍</span> Search
+      <span class="tab-icon">
+        <svg class="pixel-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+          <path d="M6 2h4v1H6zm4 1h1v1h-1zm1 1h1v3h-1zm-1 3h-1v1H6zm-1 1H4V8h2zm-2-1H3V4h1zm-1-3H2V3h1zm5-1V2H4v5h5V3z" />
+          <path d="M9 9h2v2H9zm2 2h2v2h-2zm2 2h2v2h-2z" />
+        </svg>
+      </span> Search
     </button>
     <button class="tab-btn" id="tabTrending" data-tab="trending">
-      <span class="tab-icon">🔥</span> Trending
+      <span class="tab-icon">
+        <svg class="pixel-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+          <path d="M7 0h2v2H7zm-2 2h2v2H5zm4 0h2v2H9zm-3 2h2v2H6zm4 0h2v2h-2zm-3 2h2v2H7zm4 0h2v2h-2zm-6 2h2v2H5zm8 0h2v2h-2zm-9 2h2v2H4zm10 0h2v2h-2zm-11 2h14v2H3zm2 2h6v1H5z" />
+        </svg>
+      </span> Trending
     </button>
     <button class="tab-btn" id="tabFavorites" data-tab="favorites">
-      <span class="tab-icon">❤️</span> Favorites
+      <span class="tab-icon">
+        <svg class="pixel-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+          <path d="M2 3h3v1H2zm3-1h2v1H5zm2 1h2v1H7zm2-1h2v1H9zm2 1h3v1h-3zm2 1h1v3h-1zm-1 3h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1H9zm-2 0h2v1H7zm-2-1h2v1H5zm-1-1h1v1H4zm-1-1h1v1H3zm-1-1h1v1H2zm-1-3h1v3H1zm0-3h1v3H1zm1-1h1v1H2z" />
+        </svg>
+      </span> Favorites
     </button>
   </nav>
 
@@ -48,20 +85,31 @@
   <main>
     <!-- API Key Warning -->
     <div id="apiKeyWarning" class="api-warning hidden">
-      ⚠️ Please configure your Klipy API Key in the
-      <a href="#" id="openSettingsLink">settings</a>.
+      <div class="warning-icon-wrapper">
+        <svg class="pixel-illustration" viewBox="0 0 16 16" width="48" height="48">
+          <rect x="4" y="2" width="8" height="12" fill="var(--ill-primary, #e55039)" />
+          <path d="M5 1h6v1H5zm6 1h1v12h-1zm-6 12h6v1H5zm-1-12h1v12H4z" fill="var(--border-color, #2b2421)" />
+          <rect x="7" y="4" width="2" height="4" fill="var(--border-color, #2b2421)" />
+          <rect x="7" y="10" width="2" height="2" fill="var(--border-color, #2b2421)" />
+        </svg>
+      </div>
+      <div class="warning-text">
+        Please configure your Klipy API Key in the
+        <a href="#" id="openSettingsLink">settings</a>.
+      </div>
     </div>
 
     <!-- Loading Spinner -->
     <div id="loadingIndicator" class="loading-spinner hidden">
-      <div class="spinner"></div>
+      <div class="pixel-spinner">
+        <div class="pixel-spinner-block"></div>
+      </div>
       <span class="loading-text">Searching...</span>
     </div>
 
     <!-- Empty State -->
     <div id="emptyState" class="empty-state hidden">
-      <span class="empty-icon">🎞️</span>
-      <span class="empty-text">Search for GIFs to get started!</span>
+      <!-- Dynamically filled in JS -->
     </div>
 
     <!-- Trending Tags Section -->
@@ -89,8 +137,18 @@
       <span id="closeModal" class="close-btn">&times;</span>
       <img id="modalImg" src="" alt="Enlarged GIF">
       <div class="modal-actions">
-        <button id="copyLinkBtn" class="action-btn">📋 Copy Link</button>
-        <button id="downloadBtn" class="action-btn secondary">💾 Download</button>
+        <button id="copyLinkBtn" class="action-btn">
+          <svg class="pixel-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+            <path d="M5 0h6v2H5zm-3 2h2v2H2zm10 0h2v2h-2zm-10 2h12v11H2zm2 2h8v1H4zm0 3h8v1H4zm0 3h8v1H4z" />
+          </svg>
+          Copy Link
+        </button>
+        <button id="downloadBtn" class="action-btn secondary">
+          <svg class="pixel-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+            <path d="M1 1h12l2 2v12H1V1zm2 2v4h8V3H3zm2 1h4v2H5zm-2 5v5h10V9H3zm2 1h6v3H5z" />
+          </svg>
+          Download
+        </button>
       </div>
     </div>
   </div>

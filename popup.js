@@ -1,3 +1,34 @@
+// ===== Chrome Extension API Mock for local browser testing =====
+if (typeof chrome === 'undefined') {
+    window.chrome = {
+        storage: {
+            sync: {
+                get: function(defaults, callback) {
+                    const keys = Object.keys(defaults);
+                    const result = {};
+                    keys.forEach(key => {
+                        result[key] = localStorage.getItem(key) || defaults[key];
+                    });
+                    if (callback) callback(result);
+                    return Promise.resolve(result);
+                },
+                set: function(values, callback) {
+                    Object.keys(values).forEach(key => {
+                        localStorage.setItem(key, values[key]);
+                    });
+                    if (callback) callback();
+                    return Promise.resolve();
+                }
+            }
+        },
+        runtime: {
+            openOptionsPage: function() {
+                window.open('options.html', '_blank');
+            }
+        }
+    };
+}
+
 // ===== State =====
 let currentPage = 1;
 let currentQuery = '';
@@ -339,9 +370,62 @@ function showSkeletons(container, count) {
 }
 
 // ===== Empty State =====
+function getPixelIcon(emoji) {
+    switch (emoji) {
+        case '🎞️':
+            return `
+                <svg class="pixel-illustration" viewBox="0 0 16 16" width="80" height="80">
+                    <rect x="0" y="2" width="16" height="11" fill="var(--border-color, #2b2421)" />
+                    <rect x="1" y="3" width="14" height="9" fill="var(--ill-primary, #e55039)" />
+                    <rect x="3" y="4" width="10" height="4" fill="var(--ill-label, #fffbf4)" />
+                    <rect x="4" y="5" width="2" height="2" fill="var(--border-color, #2b2421)" />
+                    <rect x="10" y="5" width="2" height="2" fill="var(--border-color, #2b2421)" />
+                    <rect x="4" y="5" width="1" height="1" fill="#ffffff" />
+                    <rect x="11" y="5" width="1" height="1" fill="#ffffff" />
+                    <rect x="4" y="10" width="8" height="2" fill="var(--border-color, #2b2421)" />
+                </svg>
+            `;
+        case '🔍':
+            return `
+                <svg class="pixel-illustration" viewBox="0 0 16 16" width="80" height="80">
+                    <path d="M4 1h8v1H4zm8 1h1v6h-1zm-1 6h-1v1H8zm-1 1H4V8h3zm-3-1H3V4h1zm-1-3H2V3h1zm5-1V2H4v5h5V3z" fill="var(--border-color, #2b2421)"/>
+                    <rect x="4" y="3" width="4" height="4" fill="var(--ill-glass, #b4e6f0)"/>
+                    <rect x="5" y="4" width="2" height="1" fill="#ffffff"/>
+                    <path d="M9 9h2v2H9zm2 2h2v2h-2zm2 2h2v2h-2z" fill="var(--border-color, #2b2421)"/>
+                    <path d="M10 10h1v1h-1zm2 2h1v1h-1z" fill="var(--ill-primary, #e55039)"/>
+                </svg>
+            `;
+        case '😢':
+            return `
+                <svg class="pixel-illustration" viewBox="0 0 16 16" width="80" height="80">
+                    <rect x="2" y="2" width="12" height="12" fill="var(--ill-face, #eed2b3)" />
+                    <path d="M4 1h8v1H4zm8 1h2v2h-2zm2 2h1v8h-1zm-1 8h-2v2h2zm-2 2H4v-1h8zm-8-1H1v-2h2zm-2-2H0V4h1zm1-2h2V1H2z" fill="var(--border-color, #2b2421)" />
+                    <rect x="4" y="5" width="2" height="2" fill="var(--border-color, #2b2421)" />
+                    <rect x="10" y="5" width="2" height="2" fill="var(--border-color, #2b2421)" />
+                    <rect x="4" y="7" width="1" height="3" fill="#54a0ff" />
+                    <rect x="11" y="7" width="1" height="3" fill="#54a0ff" />
+                    <path d="M5 11h6v-1H5v1zm0-1h1v-1H5v1zm5 0h1v-1h-1v1z" fill="var(--border-color, #2b2421)" />
+                </svg>
+            `;
+        case '💔':
+            return `
+                <svg class="pixel-illustration" viewBox="0 0 16 16" width="80" height="80">
+                    <path d="M2 3h3v1H2zm3-1h2v1H5zm2 1h2v1H7zm2-1h2v1H9zm2 1h3v1h-3zm2 1h1v3h-1zm-1 3h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1H9zm-2 0h2v1H7zm-2-1h2v1H5zm-1-1h1v1H4zm-1-1h1v1H3zm-1-1h1v1H2zm-1-3h1v3H1zm0-3h1v3H1zm1-1h1v1H2z" fill="var(--border-color, #2b2421)" />
+                    <path d="M2 4h3v4H2zm3 4h1v1H5zm1 1h1v1H6z" fill="var(--ill-accent, #ff5e6c)" />
+                    <path d="M11 4h2v3h-2zm-1 3h1v1h-1zm-1 1h1v1H9zm-1 1h1v1H8z" fill="var(--ill-accent, #ff5e6c)" />
+                    <rect x="3" y="3" width="1" height="1" fill="#ffffff" />
+                    <rect x="11" y="3" width="1" height="1" fill="#ffffff" />
+                </svg>
+            `;
+        default:
+            return emoji;
+    }
+}
+
 function showEmptyState(icon, text) {
+    const pixelIcon = getPixelIcon(icon);
     el.emptyState.innerHTML = `
-        <span class="empty-icon">${icon}</span>
+        <div class="empty-icon-wrapper">${pixelIcon}</div>
         <span class="empty-text">${text}</span>
     `;
     el.emptyState.classList.remove('hidden');
@@ -571,7 +655,6 @@ function loadState() {
             const isDark = state.mode === 'dark';
             document.body.classList.toggle('dark-mode', isDark);
             document.body.classList.toggle('light-mode', !isDark);
-            el.modeToggle.innerText = isDark ? '☀️' : '🌓';
 
             el.searchQuery.value = currentQuery;
 
@@ -603,7 +686,6 @@ function loadState() {
 function toggleMode() {
     const isDark = document.body.classList.toggle('dark-mode');
     document.body.classList.toggle('light-mode', !isDark);
-    el.modeToggle.innerText = isDark ? '☀️' : '🌓';
     saveState();
     showToast(isDark ? 'Dark mode enabled 🌙' : 'Light mode enabled ☀️', 'success');
 }

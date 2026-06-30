@@ -18,7 +18,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Kanit:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
     <style>
@@ -32,18 +32,43 @@
         }
 
         :root {
-            --bg: #0a0a1a;
-            --bg-surface: #111128;
-            --bg-card: #16163a;
-            --text: #e8e8f0;
-            --text-muted: #8b8ba0;
-            --accent: #ff4757;
-            --accent-glow: rgba(255, 71, 87, 0.25);
-            --purple: #7c5cfc;
-            --purple-glow: rgba(124, 92, 252, 0.2);
-            --gradient: linear-gradient(135deg, #ff4757 0%, #7c5cfc 100%);
-            --radius: 16px;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --bg-color: #faf6ee;
+            --bg-pattern-color: #e9decb;
+            --surface-color: #fffbf4;
+            --text-color: #2b2421;
+            --text-secondary: #75655d;
+            --border-color: #2b2421;
+            --shadow-color: #2b2421;
+            --input-bg: #fffbf4;
+            --input-border: #2b2421;
+            
+            --btn-bg: #fffbf4;
+            --btn-hover: #f0eae1;
+            
+            --accent-color: #ff5e6c;
+            --accent-hover: #ff7884;
+            --accent-glow: rgba(255, 94, 108, 0.25);
+            --success-color: #2ed573;
+        }
+
+        body.dark-mode {
+            --bg-color: #1a1721;
+            --bg-pattern-color: #2d2738;
+            --surface-color: #25202e;
+            --text-color: #f3e9db;
+            --text-secondary: #968b81;
+            --border-color: #f3e9db;
+            --shadow-color: #0c0a0f;
+            --input-bg: #1c1824;
+            --input-border: #f3e9db;
+            
+            --btn-bg: #25202e;
+            --btn-hover: #312a3d;
+            
+            --accent-color: #ff6b8b;
+            --accent-hover: #ff8ca4;
+            --accent-glow: rgba(255, 107, 139, 0.25);
+            --success-color: #2ed573;
         }
 
         html {
@@ -51,75 +76,31 @@
         }
 
         body {
-            font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            font-family: "Kanit", sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--bg-pattern-color) 1.5px, transparent 1.5px);
+            background-size: 12px 12px;
+            color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            image-rendering: pixelated;
         }
 
         a {
-            color: var(--accent);
+            color: var(--accent-color);
             text-decoration: none;
-            transition: color var(--transition);
+            font-weight: 700;
+            transition: border-color 0.15s ease;
+            border-bottom: 2px solid transparent;
         }
 
         a:hover {
-            color: var(--purple);
+            border-bottom-color: var(--accent-color);
         }
 
-        /* ===== Animated Background ===== */
-        .bg-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .bg-glow::before,
-        .bg-glow::after {
-            content: "";
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.3;
-            animation: floatGlow 15s ease-in-out infinite alternate;
-        }
-
-        .bg-glow::before {
-            width: 500px;
-            height: 500px;
-            background: var(--accent);
-            top: -10%;
-            right: -5%;
-        }
-
-        .bg-glow::after {
-            width: 400px;
-            height: 400px;
-            background: var(--purple);
-            bottom: 10%;
-            left: -5%;
-            animation-delay: -7s;
-        }
-
-        @keyframes floatGlow {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-
-            100% {
-                transform: translate(40px, -30px) scale(1.1);
-            }
-        }
-
-        /* ===== Layout ===== */
         .container {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 0 24px;
             position: relative;
@@ -138,10 +119,9 @@
             right: 0;
             z-index: 100;
             padding: 16px 0;
-            background-color: rgba(10, 10, 26, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            background-color: var(--surface-color);
+            border-bottom: 4px solid var(--border-color);
+            box-shadow: 0 4px 0 var(--shadow-color);
         }
 
         nav .container {
@@ -151,57 +131,98 @@
         }
 
         .nav-logo {
+            font-family: 'Pixelify Sans', sans-serif;
             font-weight: 700;
-            font-size: 20px;
+            font-size: 22px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: var(--text);
-        }
-
-        .nav-logo span {
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            gap: 10px;
+            color: var(--text-color);
         }
 
         .nav-links {
             display: flex;
+            align-items: center;
             gap: 32px;
             list-style: none;
         }
 
         .nav-links a {
-            color: var(--text-muted);
+            color: var(--text-secondary);
+            font-family: 'Pixelify Sans', sans-serif;
             font-size: 14px;
-            font-weight: 500;
-            transition: color var(--transition);
+            font-weight: 700;
+            border-bottom: none;
+            transition: color 0.15s ease;
         }
 
         .nav-links a:hover {
-            color: var(--text);
+            color: var(--text-color);
         }
 
         .nav-cta {
-            background: var(--gradient);
+            background-color: var(--accent-color);
             color: white !important;
-            padding: 8px 20px;
-            border-radius: 24px;
-            font-weight: 600;
+            border: 3px solid var(--border-color);
+            padding: 8px 18px;
+            font-family: 'Pixelify Sans', sans-serif;
+            font-weight: 700;
             font-size: 14px;
-            transition: transform var(--transition), box-shadow var(--transition);
+            box-shadow: 3px 3px 0 var(--shadow-color);
         }
 
         .nav-cta:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 20px var(--accent-glow);
-            color: white !important;
+            background-color: var(--accent-hover);
+        }
+
+        .nav-cta:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 var(--shadow-color);
+        }
+
+        /* Controls */
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .icon-btn {
+            background-color: var(--btn-bg);
+            border: 3px solid var(--border-color);
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            position: relative;
+            box-shadow: 3px 3px 0 var(--shadow-color);
+        }
+
+        .icon-btn:hover {
+            background-color: var(--btn-hover);
+        }
+
+        .icon-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 var(--shadow-color);
+        }
+
+        body.light-mode .sun-icon { display: none; }
+        body.light-mode .moon-icon { display: block; }
+        body.dark-mode .sun-icon { display: block; }
+        body.dark-mode .moon-icon { display: none; }
+
+        .pixel-icon {
+            image-rendering: pixelated;
+            flex-shrink: 0;
         }
 
         /* ===== Hero ===== */
         .hero {
-            padding: 160px 0 100px;
+            padding: 160px 0 80px;
             text-align: center;
         }
 
@@ -209,54 +230,47 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 6px 16px;
-            border-radius: 24px;
-            background-color: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 8px 16px;
+            border: 3px solid var(--border-color);
+            background-color: var(--surface-color);
+            font-family: 'Pixelify Sans', sans-serif;
             font-size: 13px;
-            color: var(--text-muted);
+            font-weight: 700;
+            color: var(--text-color);
             margin-bottom: 28px;
+            box-shadow: 3px 3px 0 var(--shadow-color);
         }
 
         .hero-badge .badge-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: #2ed573;
-            animation: pulse-dot 2s ease-in-out infinite;
+            width: 8px;
+            height: 8px;
+            background-color: var(--success-color);
+            border: 2px solid var(--border-color);
+            animation: pulse-dot 1.2s steps(2) infinite;
         }
 
         @keyframes pulse-dot {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.4;
-            }
+            0% { opacity: 1; }
+            100% { opacity: 0.2; }
         }
 
         .hero h1 {
-            font-size: clamp(40px, 6vw, 72px);
-            font-weight: 800;
-            line-height: 1.1;
+            font-family: 'Pixelify Sans', sans-serif;
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 700;
+            line-height: 1.15;
             margin-bottom: 20px;
-            letter-spacing: -0.02em;
+            color: var(--text-color);
         }
 
         .hero h1 .gradient-text {
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--accent-color);
         }
 
         .hero p {
             font-size: 18px;
-            color: var(--text-muted);
-            max-width: 540px;
+            color: var(--text-secondary);
+            max-width: 580px;
             margin: 0 auto 36px;
             line-height: 1.7;
         }
@@ -271,111 +285,119 @@
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             padding: 14px 28px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 15px;
+            border: 3px solid var(--border-color);
+            font-family: 'Pixelify Sans', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
             cursor: pointer;
-            border: none;
-            transition: all var(--transition);
+            box-shadow: 4px 4px 0 var(--shadow-color);
             text-decoration: none;
+            transition: background-color 0.15s ease;
         }
 
         .btn-primary {
-            background: var(--gradient);
-            color: white;
-            box-shadow: 0 4px 20px var(--accent-glow);
+            background-color: var(--accent-color);
+            color: white !important;
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px var(--accent-glow);
-            color: white;
+            background-color: var(--accent-hover);
+        }
+
+        .btn-primary:active,
+        .btn-secondary:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 var(--shadow-color);
         }
 
         .btn-secondary {
-            background-color: var(--bg-card);
-            color: var(--text);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: var(--surface-color);
+            color: var(--text-color) !important;
         }
 
         .btn-secondary:hover {
-            background-color: var(--bg-surface);
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-            color: var(--text);
+            background-color: var(--btn-hover);
         }
 
+        /* Mockup */
         .hero-visual {
-            margin-top: 60px;
-            perspective: 1000px;
+            margin-top: 64px;
         }
 
         .hero-mockup {
-            background-color: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 24px;
-            max-width: 420px;
+            background-color: var(--surface-color);
+            border: 4px solid var(--border-color);
+            padding: 20px;
+            max-width: 400px;
             margin: 0 auto;
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
-            transform: rotateX(2deg);
-            transition: transform 0.5s ease;
-        }
-
-        .hero-mockup:hover {
-            transform: rotateX(0);
+            box-shadow: 8px 8px 0 var(--shadow-color);
+            text-align: left;
         }
 
         .mockup-header {
             display: flex;
-            gap: 8px;
+            justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            gap: 8px;
+            margin-bottom: 14px;
         }
 
         .mockup-search {
-            flex: 1;
-            padding: 10px 16px;
-            border-radius: 24px;
-            background-color: var(--bg-surface);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--text-muted);
+            flex-grow: 1;
+            border: 3px solid var(--border-color);
+            background-color: var(--input-bg);
+            padding: 8px 12px;
+            font-family: 'Pixelify Sans', sans-serif;
             font-size: 13px;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mockup-controls {
+            display: flex;
+            gap: 6px;
         }
 
         .mockup-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background-color: var(--bg-surface);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 3px solid var(--border-color);
+            background-color: var(--btn-bg);
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            color: var(--text-color);
         }
 
         .mockup-tabs {
             display: flex;
-            gap: 0;
-            margin-bottom: 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 3px solid var(--border-color);
+            margin-bottom: 14px;
         }
 
         .mockup-tab {
             flex: 1;
             text-align: center;
             padding: 8px 0;
+            font-family: 'Pixelify Sans', sans-serif;
             font-size: 12px;
-            color: var(--text-muted);
-            border-bottom: 2px solid transparent;
+            font-weight: 700;
+            color: var(--text-secondary);
+            border-bottom: 3px solid transparent;
+            margin-bottom: -3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
         }
 
         .mockup-tab.active {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
+            color: var(--accent-color);
+            border-bottom-color: var(--accent-color);
         }
 
         .mockup-grid {
@@ -386,34 +408,19 @@
 
         .mockup-gif {
             aspect-ratio: 1;
-            border-radius: 8px;
-            animation: shimmer 2s linear infinite;
-            background: linear-gradient(110deg, var(--bg-surface) 8%, #1f1f4a 18%, var(--bg-surface) 33%);
+            border: 2px solid var(--border-color);
+            background-color: var(--input-bg);
+        }
+
+        .mockup-gif.shimmer {
+            background: linear-gradient(
+                90deg,
+                var(--input-bg) 25%,
+                var(--btn-hover) 50%,
+                var(--input-bg) 75%
+            );
             background-size: 200% 100%;
-        }
-
-        .mockup-gif:nth-child(1) {
-            background-color: #ff475720;
-        }
-
-        .mockup-gif:nth-child(2) {
-            background-color: #7c5cfc20;
-        }
-
-        .mockup-gif:nth-child(3) {
-            background-color: #2ed57320;
-        }
-
-        .mockup-gif:nth-child(4) {
-            background-color: #ffa50220;
-        }
-
-        .mockup-gif:nth-child(5) {
-            background-color: #ff6b8120;
-        }
-
-        .mockup-gif:nth-child(6) {
-            background-color: #5352ed20;
+            animation: shimmer 1.5s steps(6) infinite;
         }
 
         @keyframes shimmer {
@@ -424,9 +431,9 @@
 
         /* ===== Features ===== */
         .features {
-            background-color: var(--bg-surface);
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            border-top: 4px dashed var(--border-color);
+            border-bottom: 4px dashed var(--border-color);
+            background-color: var(--surface-color);
         }
 
         .section-header {
@@ -435,24 +442,25 @@
         }
 
         .section-header .label {
-            font-size: 13px;
-            font-weight: 600;
+            font-family: 'Pixelify Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent);
+            color: var(--accent-color);
             margin-bottom: 12px;
             display: block;
         }
 
         .section-header h2 {
-            font-size: clamp(28px, 4vw, 42px);
+            font-family: 'Pixelify Sans', sans-serif;
+            font-size: clamp(28px, 4vw, 40px);
             font-weight: 700;
             margin-bottom: 12px;
-            letter-spacing: -0.01em;
+            color: var(--text-color);
         }
 
         .section-header p {
-            color: var(--text-muted);
+            color: var(--text-secondary);
             font-size: 16px;
             max-width: 480px;
             margin: 0 auto;
@@ -461,44 +469,46 @@
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            gap: 24px;
         }
 
         .feature-card {
-            background-color: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: var(--radius);
+            background-color: var(--bg-color);
+            border: 3px solid var(--border-color);
+            box-shadow: 4px 4px 0 var(--shadow-color);
             padding: 28px;
-            transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+            transition: transform 0.15s steps(3), box-shadow 0.15s steps(3);
         }
 
         .feature-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255, 71, 87, 0.2);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            transform: translate(-3px, -3px);
+            box-shadow: 7px 7px 0 var(--shadow-color);
         }
 
         .feature-icon {
             width: 48px;
             height: 48px;
-            border-radius: 12px;
-            background: var(--gradient);
+            border: 3px solid var(--border-color);
+            background-color: var(--surface-color);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 22px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+            box-shadow: 3px 3px 0 var(--shadow-color);
         }
 
         .feature-card h3 {
-            font-size: 17px;
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-family: 'Pixelify Sans', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-color);
         }
 
         .feature-card p {
             font-size: 14px;
-            color: var(--text-muted);
+            color: var(--text-secondary);
             line-height: 1.6;
         }
 
@@ -507,37 +517,45 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 32px;
-            counter-reset: step;
         }
 
         .step-card {
             text-align: center;
-            counter-increment: step;
         }
 
         .step-number {
             width: 56px;
             height: 56px;
-            border-radius: 50%;
-            background: var(--gradient);
+            border: 3px solid var(--border-color);
+            background-color: var(--accent-color);
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-family: 'Pixelify Sans', sans-serif;
+            font-size: 24px;
             font-weight: 700;
-            margin: 0 auto 16px;
-            box-shadow: 0 4px 20px var(--accent-glow);
+            margin: 0 auto 20px;
+            box-shadow: 4px 4px 0 var(--shadow-color);
+            animation: floatSteps 2s steps(4) infinite alternate;
+        }
+
+        @keyframes floatSteps {
+            from { transform: translateY(0); }
+            to { transform: translateY(-4px); }
         }
 
         .step-card h3 {
-            font-size: 16px;
-            font-weight: 600;
+            font-family: 'Pixelify Sans', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
             margin-bottom: 8px;
+            color: var(--text-color);
         }
 
         .step-card p {
             font-size: 14px;
-            color: var(--text-muted);
+            color: var(--text-secondary);
             line-height: 1.6;
         }
 
@@ -554,23 +572,25 @@
             align-items: center;
             gap: 8px;
             padding: 10px 20px;
-            border-radius: 24px;
-            background-color: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 3px solid var(--border-color);
+            background-color: var(--surface-color);
+            font-family: 'Pixelify Sans', sans-serif;
             font-size: 14px;
-            font-weight: 500;
-            transition: border-color var(--transition), transform var(--transition);
+            font-weight: 700;
+            color: var(--text-color);
+            box-shadow: 3px 3px 0 var(--shadow-color);
+            transition: transform 0.1s steps(2);
         }
 
         .tech-pill:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0 var(--shadow-color);
         }
 
         .tech-pill .tech-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            border: 2px solid var(--border-color);
         }
 
         /* ===== CTA Section ===== */
@@ -579,56 +599,40 @@
         }
 
         .cta-box {
-            background: var(--gradient);
-            border-radius: 24px;
+            background-color: var(--surface-color);
+            border: 4px solid var(--border-color);
+            box-shadow: 8px 8px 0 var(--shadow-color);
             padding: 60px 40px;
             position: relative;
-            overflow: hidden;
-        }
-
-        .cta-box::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 400px;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            filter: blur(60px);
         }
 
         .cta-box h2 {
-            font-size: clamp(24px, 4vw, 36px);
+            font-family: 'Pixelify Sans', sans-serif;
+            font-size: clamp(26px, 4vw, 36px);
             font-weight: 700;
             margin-bottom: 12px;
-            position: relative;
+            color: var(--text-color);
         }
 
         .cta-box p {
             font-size: 16px;
-            opacity: 0.9;
+            color: var(--text-secondary);
             margin-bottom: 28px;
-            position: relative;
         }
 
         .cta-box .btn {
-            background-color: white;
-            color: var(--bg) !important;
-            font-weight: 700;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            position: relative;
+            background-color: var(--accent-color);
+            color: white !important;
         }
 
         .cta-box .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            background-color: var(--accent-hover);
         }
 
         /* ===== Footer ===== */
         footer {
             padding: 40px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            border-top: 4px dashed var(--border-color);
             text-align: center;
         }
 
@@ -641,17 +645,27 @@
         }
 
         .footer-links a {
-            color: var(--text-muted);
+            color: var(--text-secondary);
+            font-family: 'Pixelify Sans', sans-serif;
             font-size: 14px;
+            font-weight: 700;
+            border: none;
         }
 
         .footer-links a:hover {
-            color: var(--text);
+            color: var(--text-color);
         }
 
         footer .copyright {
+            font-family: 'Pixelify Sans', sans-serif;
             font-size: 13px;
-            color: var(--text-muted);
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        footer .copyright a {
+            border: none;
+            font-weight: 700;
         }
 
         /* ===== Keyboard Shortcut Visual ===== */
@@ -659,15 +673,14 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            padding: 4px 10px;
-            border-radius: 6px;
-            background-color: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            font-family: "Inter", monospace;
+            padding: 2px 8px;
+            border: 2px solid var(--border-color);
+            background-color: var(--surface-color);
+            font-family: "Pixelify Sans", monospace;
             font-size: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
-            box-shadow: 0 2px 0 rgba(255, 255, 255, 0.04);
+            font-weight: 700;
+            color: var(--text-color);
+            box-shadow: 2px 2px 0 var(--shadow-color);
         }
 
         /* ===== Responsive ===== */
@@ -700,15 +713,22 @@
     </style>
 </head>
 
-<body>
-    <!-- Background Glow -->
-    <div class="bg-glow"></div>
-
+<body class="dark-mode">
     <!-- Navigation -->
     <nav>
         <div class="container">
             <div class="nav-logo">
-                🎞️ <span>Klipy GIF Search</span>
+                <svg class="pixel-icon" viewBox="0 0 16 16" width="22" height="22" fill="currentColor">
+                    <rect x="0" y="2" width="16" height="11" fill="var(--border-color)" />
+                    <rect x="1" y="3" width="14" height="9" fill="var(--accent-color)" />
+                    <rect x="3" y="4" width="10" height="4" fill="var(--surface-color)" />
+                    <rect x="4" y="5" width="2" height="2" fill="var(--border-color)" />
+                    <rect x="10" y="5" width="2" height="2" fill="var(--border-color)" />
+                    <rect x="4" y="5" width="1" height="1" fill="#ffffff" />
+                    <rect x="11" y="5" width="1" height="1" fill="#ffffff" />
+                    <rect x="4" y="10" width="8" height="2" fill="var(--border-color)" />
+                </svg>
+                <span>Klipy GIF Search</span>
             </div>
             <ul class="nav-links">
                 <li><a href="#features">Features</a></li>
@@ -716,7 +736,17 @@
                 <li><a href="#tech">Tech</a></li>
                 <li><a href="https://github.com/Klysman08/TenorExtension" target="_blank">GitHub</a></li>
             </ul>
-            <a href="https://github.com/Klysman08/TenorExtension" target="_blank" class="nav-cta">⭐ Star on GitHub</a>
+            <div class="nav-controls">
+                <button id="themeToggle" class="icon-btn" aria-label="Toggle Theme">
+                    <svg class="pixel-icon sun-icon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                       <rect x="6" y="1" width="4" height="2"/><rect x="1" y="6" width="2" height="4"/><rect x="13" y="6" width="2" height="4"/><rect x="6" y="13" width="4" height="2"/><rect x="4" y="4" width="8" height="8"/><rect x="3" y="3" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="3" y="12" width="1" height="1"/><rect x="12" y="12" width="1" height="1"/>
+                    </svg>
+                    <svg class="pixel-icon moon-icon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                       <path d="M5 1h5v1H5v2H3v2H2v4h1v2h2v1h5v-1H7v-1H5v-2H4V6h1V4h2V2h3V1h-5zm6 2h1v8h-1V3z"/>
+                    </svg>
+                </button>
+                <a href="https://github.com/Klysman08/TenorExtension" target="_blank" class="nav-cta">⭐ Star</a>
+            </div>
         </div>
     </nav>
 
@@ -751,23 +781,48 @@
             <div class="hero-visual">
                 <div class="hero-mockup">
                     <div class="mockup-header">
-                        <div class="mockup-search">🔍 Search GIFs...</div>
-                        <div class="mockup-btn">❤️</div>
-                        <div class="mockup-btn">🌓</div>
-                        <div class="mockup-btn">⚙️</div>
+                        <div class="mockup-search">
+                            <span>Search GIFs...</span>
+                            <svg class="pixel-icon" viewBox="0 0 16 16" width="12" height="12" fill="currentColor">
+                              <path d="M6 2h4v1H6zm4 1h1v1h-1zm1 1h1v3h-1zm-1 3h-1v1H6zm-1 1H4V7h2zm-2-1H3V4h1zm-1-3H2V3h1zm5-1V2H4v5h5V3z" />
+                            </svg>
+                        </div>
+                        <div class="mockup-controls">
+                            <div class="mockup-btn">
+                                <svg class="pixel-icon" viewBox="0 0 16 16" width="12" height="12" fill="currentColor">
+                                  <path d="M2 3h3v1H2zm3-1h2v1H5zm2 1h2v1H7zm2-1h2v1H9zm2 1h3v1h-3zm2 1h1v3h-1zm-1 3h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1H9zm-2 0h2v1H7zm-2-1h2v1H5zm-1-1h1v1H4zm-1-1h1v1H3zm-1-1h1v1H2zm-1-3h1v3H1zm0-3h1v3H1zm1-1h1v1H2z" />
+                                </svg>
+                            </div>
+                            <div class="mockup-btn">
+                                <svg class="pixel-icon" viewBox="0 0 16 16" width="12" height="12" fill="currentColor">
+                                   <path d="M5 1h5v1H5v2H3v2H2v4h1v2h2v1h5v-1H7v-1H5v-2H4V6h1V4h2V2h3V1h-5zm6 2h1v8h-1V3z"/>
+                                </svg>
+                            </div>
+                            <div class="mockup-btn">
+                                <svg class="pixel-icon" viewBox="0 0 16 16" width="12" height="12" fill="currentColor">
+                                  <rect x="7" y="0" width="2" height="2" /><rect x="7" y="14" width="2" height="2" /><rect x="0" y="7" width="2" height="2" /><rect x="14" y="7" width="2" height="2" /><rect x="2" y="2" width="2" height="2" /><rect x="12" y="2" width="2" height="2" /><rect x="2" y="12" width="2" height="2" /><rect x="12" y="12" width="2" height="2" /><path d="M5 3h6v10H5z" /><path d="M3 5h10v6H3z" /><rect x="7" y="7" width="2" height="2" fill="var(--surface-color)" />
+                                </svg>
+                            </div>
+                        </div>
                     </div>
                     <div class="mockup-tabs">
-                        <div class="mockup-tab active">🔍 Search</div>
-                        <div class="mockup-tab">🔥 Trending</div>
-                        <div class="mockup-tab">❤️ Favorites</div>
+                        <div class="mockup-tab active">
+                            <svg class="pixel-icon" viewBox="0 0 16 16" width="10" height="10" fill="currentColor"><path d="M6 2h4v1H6zm4 1h1v1h-1zm1 1h1v3h-1zm-1 3h-1v1H6zm-1 1H4V8h2zm-2-1H3V4h1zm-1-3H2V3h1zm5-1V2H4v5h5V3z" /></svg> Search
+                        </div>
+                        <div class="mockup-tab">
+                            <svg class="pixel-icon" viewBox="0 0 16 16" width="10" height="10" fill="currentColor"><path d="M7 0h2v2H7zm-2 2h2v2H5zm4 0h2v2H9zm-3 2h2v2H6zm4 0h2v2h-2zm-3 2h2v2H7zm4 0h2v2h-2zm-6 2h2v2H5zm8 0h2v2h-2zm-9 2h2v2H4zm10 0h2v2h-2zm-11 2h14v2H3zm2 2h6v1H5z" /></svg> Trending
+                        </div>
+                        <div class="mockup-tab">
+                            <svg class="pixel-icon" viewBox="0 0 16 16" width="10" height="10" fill="currentColor"><path d="M2 3h3v1H2zm3-1h2v1H5zm2 1h2v1H7zm2-1h2v1H9zm2 1h3v1h-3zm2 1h1v3h-1zm-1 3h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1H9zm-2 0h2v1H7zm-2-1h2v1H5zm-1-1h1v1H4zm-1-1h1v1H3zm-1-1h1v1H2zm-1-3h1v3H1zm0-3h1v3H1zm1-1h1v1H2z" /></svg> Favorites
+                        </div>
                     </div>
                     <div class="mockup-grid">
-                        <div class="mockup-gif"></div>
-                        <div class="mockup-gif"></div>
-                        <div class="mockup-gif"></div>
-                        <div class="mockup-gif"></div>
-                        <div class="mockup-gif"></div>
-                        <div class="mockup-gif"></div>
+                        <div class="mockup-gif shimmer"></div>
+                        <div class="mockup-gif shimmer"></div>
+                        <div class="mockup-gif shimmer"></div>
+                        <div class="mockup-gif shimmer"></div>
+                        <div class="mockup-gif shimmer"></div>
+                        <div class="mockup-gif shimmer"></div>
                     </div>
                 </div>
             </div>
@@ -885,28 +940,28 @@
 
             <div class="tech-grid">
                 <div class="tech-pill">
-                    <span class="tech-dot" style="background: #f7df1e;"></span>
+                    <span class="tech-dot" style="background: #f7df1e; border-color: #2b2421;"></span>
                     Vanilla JavaScript
                 </div>
                 <div class="tech-pill">
-                    <span class="tech-dot" style="background: #264de4;"></span>
+                    <span class="tech-dot" style="background: #264de4; border-color: #2b2421;"></span>
                     CSS Custom Properties
                 </div>
                 <div class="tech-pill">
-                    <span class="tech-dot" style="background: #e34f26;"></span>
+                    <span class="tech-dot" style="background: #e34f26; border-color: #2b2421;"></span>
                     HTML5 Semantic
                 </div>
                 <div class="tech-pill">
-                    <span class="tech-dot" style="background: #4285F4;"></span>
+                    <span class="tech-dot" style="background: #4285F4; border-color: #2b2421;"></span>
                     Chrome Manifest V3
                 </div>
                 <div class="tech-pill">
-                    <span class="tech-dot" style="background: #ff4757;"></span>
+                    <span class="tech-dot" style="background: #ff4757; border-color: #2b2421;"></span>
                     Klipy API
                 </div>
                 <div class="tech-pill">
-                    <span class="tech-dot" style="background: #ffffff;"></span>
-                    Google Fonts (Kanit)
+                    <span class="tech-dot" style="background: #ffffff; border-color: #2b2421;"></span>
+                    Google Fonts
                 </div>
             </div>
         </div>
@@ -918,7 +973,7 @@
             <div class="cta-box">
                 <h2>Ready to start searching?</h2>
                 <p>Install the extension, grab a free API key, and find the perfect GIF in seconds.</p>
-                <a href="https://github.com/Klysman08/TenorExtension" class="btn" target="_blank">
+                <a href="https://github.com/Klysman08/TenorExtension" class="btn btn-primary" target="_blank">
                     🚀 Get Started Now
                 </a>
             </div>
@@ -938,11 +993,30 @@
                 <a href="https://partner.klipy.com/api-keys" target="_blank">Get API Key</a>
             </div>
             <p class="copyright">
-                © 2025 <a href="https://github.com/Klysman08" target="_blank">Klysman08</a>. Built with ❤️ and the Klipy
+                © 2026 <a href="https://github.com/Klysman08" target="_blank">Klysman08</a>. Built with ❤️ and the Klipy
                 API.
             </p>
         </div>
     </footer>
+
+    <!-- Client-side script for Theme Toggle persistence -->
+    <script>
+        const toggleBtn = document.getElementById('themeToggle');
+        
+        // Load default preference (defaulting to dark mode like original web page)
+        let mode = localStorage.getItem('docsTheme') || 'dark';
+        if (mode === 'dark') {
+            document.body.className = 'dark-mode';
+        } else {
+            document.body.className = 'light-mode';
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            const isDark = document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('light-mode', !isDark);
+            localStorage.setItem('docsTheme', isDark ? 'dark' : 'light');
+        });
+    </script>
 </body>
 
 </html>
