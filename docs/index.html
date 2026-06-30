@@ -18,7 +18,8 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Kanit:wght@300;400;500;600;700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Kanit:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
     <style>
@@ -41,10 +42,10 @@
             --shadow-color: #2b2421;
             --input-bg: #fffbf4;
             --input-border: #2b2421;
-            
+
             --btn-bg: #fffbf4;
             --btn-hover: #f0eae1;
-            
+
             --accent-color: #ff5e6c;
             --accent-hover: #ff7884;
             --accent-glow: rgba(255, 94, 108, 0.25);
@@ -61,10 +62,10 @@
             --shadow-color: #0c0a0f;
             --input-bg: #1c1824;
             --input-border: #f3e9db;
-            
+
             --btn-bg: #25202e;
             --btn-hover: #312a3d;
-            
+
             --accent-color: #ff6b8b;
             --accent-hover: #ff8ca4;
             --accent-glow: rgba(255, 107, 139, 0.25);
@@ -210,10 +211,21 @@
             box-shadow: 1px 1px 0 var(--shadow-color);
         }
 
-        body.light-mode .sun-icon { display: none; }
-        body.light-mode .moon-icon { display: block; }
-        body.dark-mode .sun-icon { display: block; }
-        body.dark-mode .moon-icon { display: none; }
+        body.light-mode .sun-icon {
+            display: none;
+        }
+
+        body.light-mode .moon-icon {
+            display: block;
+        }
+
+        body.dark-mode .sun-icon {
+            display: block;
+        }
+
+        body.dark-mode .moon-icon {
+            display: none;
+        }
 
         .pixel-icon {
             image-rendering: pixelated;
@@ -250,8 +262,13 @@
         }
 
         @keyframes pulse-dot {
-            0% { opacity: 1; }
-            100% { opacity: 0.2; }
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.2;
+            }
         }
 
         .hero h1 {
@@ -413,12 +430,10 @@
         }
 
         .mockup-gif.shimmer {
-            background: linear-gradient(
-                90deg,
-                var(--input-bg) 25%,
-                var(--btn-hover) 50%,
-                var(--input-bg) 75%
-            );
+            background: linear-gradient(90deg,
+                    var(--input-bg) 25%,
+                    var(--btn-hover) 50%,
+                    var(--input-bg) 75%);
             background-size: 200% 100%;
             animation: shimmer 1.5s steps(6) infinite;
         }
@@ -541,8 +556,13 @@
         }
 
         @keyframes floatSteps {
-            from { transform: translateY(0); }
-            to { transform: translateY(-4px); }
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-4px);
+            }
         }
 
         .step-card h3 {
@@ -739,10 +759,18 @@
             <div class="nav-controls">
                 <button id="themeToggle" class="icon-btn" aria-label="Toggle Theme">
                     <svg class="pixel-icon sun-icon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-                       <rect x="6" y="1" width="4" height="2"/><rect x="1" y="6" width="2" height="4"/><rect x="13" y="6" width="2" height="4"/><rect x="6" y="13" width="4" height="2"/><rect x="4" y="4" width="8" height="8"/><rect x="3" y="3" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="3" y="12" width="1" height="1"/><rect x="12" y="12" width="1" height="1"/>
+                        <rect x="6" y="1" width="4" height="2" />
+                        <rect x="1" y="6" width="2" height="4" />
+                        <rect x="13" y="6" width="2" height="4" />
+                        <rect x="6" y="13" width="4" height="2" />
+                        <rect x="4" y="4" width="8" height="8" />
+                        <rect x="3" y="3" width="1" height="1" />
+                        <rect x="12" y="3" width="1" height="1" />
+                        <rect x="3" y="12" width="1" height="1" />
+                        <rect x="12" y="12" width="1" height="1" />
                     </svg>
                     <svg class="pixel-icon moon-icon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-                       <path d="M5 1h5v1H5v2H3v2H2v4h1v2h2v1h5v-1H7v-1H5v-2H4V6h1V4h2V2h3V1h-5zm6 2h1v8h-1V3z"/>
+                        <path d="M5 1h5v1H5v2H3v2H2v4h1v2h2v1h5v-1H7v-1H5v-2H4V6h1V4h2V2h3V1h-5zm6 2h1v8h-1V3z" />
                     </svg>
                 </button>
                 <a href="https://github.com/Klysman08/TenorExtension" target="_blank" class="nav-cta">⭐ Star</a>
@@ -784,45 +812,79 @@
                         <div class="mockup-search">
                             <span>Search GIFs...</span>
                             <svg class="pixel-icon" viewBox="0 0 16 16" width="12" height="12" fill="currentColor">
-                              <path d="M6 2h4v1H6zm4 1h1v1h-1zm1 1h1v3h-1zm-1 3h-1v1H6zm-1 1H4V7h2zm-2-1H3V4h1zm-1-3H2V3h1zm5-1V2H4v5h5V3z" />
+                                <path
+                                    d="M6 2h4v1H6zm4 1h1v1h-1zm1 1h1v3h-1zm-1 3h-1v1H6zm-1 1H4V7h2zm-2-1H3V4h1zm-1-3H2V3h1zm5-1V2H4v5h5V3z" />
                             </svg>
                         </div>
                         <div class="mockup-controls">
                             <div class="mockup-btn">
                                 <svg class="pixel-icon" viewBox="0 0 16 16" width="12" height="12" fill="currentColor">
-                                  <path d="M2 3h3v1H2zm3-1h2v1H5zm2 1h2v1H7zm2-1h2v1H9zm2 1h3v1h-3zm2 1h1v3h-1zm-1 3h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1H9zm-2 0h2v1H7zm-2-1h2v1H5zm-1-1h1v1H4zm-1-1h1v1H3zm-1-1h1v1H2zm-1-3h1v3H1zm0-3h1v3H1zm1-1h1v1H2z" />
+                                    <path
+                                        d="M2 3h3v1H2zm3-1h2v1H5zm2 1h2v1H7zm2-1h2v1H9zm2 1h3v1h-3zm2 1h1v3h-1zm-1 3h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1H9zm-2 0h2v1H7zm-2-1h2v1H5zm-1-1h1v1H4zm-1-1h1v1H3zm-1-1h1v1H2zm-1-3h1v3H1zm0-3h1v3H1zm1-1h1v1H2z" />
                                 </svg>
                             </div>
                             <div class="mockup-btn">
                                 <svg class="pixel-icon" viewBox="0 0 16 16" width="12" height="12" fill="currentColor">
-                                   <path d="M5 1h5v1H5v2H3v2H2v4h1v2h2v1h5v-1H7v-1H5v-2H4V6h1V4h2V2h3V1h-5zm6 2h1v8h-1V3z"/>
+                                    <path
+                                        d="M5 1h5v1H5v2H3v2H2v4h1v2h2v1h5v-1H7v-1H5v-2H4V6h1V4h2V2h3V1h-5zm6 2h1v8h-1V3z" />
                                 </svg>
                             </div>
                             <div class="mockup-btn">
                                 <svg class="pixel-icon" viewBox="0 0 16 16" width="12" height="12" fill="currentColor">
-                                  <rect x="7" y="0" width="2" height="2" /><rect x="7" y="14" width="2" height="2" /><rect x="0" y="7" width="2" height="2" /><rect x="14" y="7" width="2" height="2" /><rect x="2" y="2" width="2" height="2" /><rect x="12" y="2" width="2" height="2" /><rect x="2" y="12" width="2" height="2" /><rect x="12" y="12" width="2" height="2" /><path d="M5 3h6v10H5z" /><path d="M3 5h10v6H3z" /><rect x="7" y="7" width="2" height="2" fill="var(--surface-color)" />
+                                    <rect x="7" y="0" width="2" height="2" />
+                                    <rect x="7" y="14" width="2" height="2" />
+                                    <rect x="0" y="7" width="2" height="2" />
+                                    <rect x="14" y="7" width="2" height="2" />
+                                    <rect x="2" y="2" width="2" height="2" />
+                                    <rect x="12" y="2" width="2" height="2" />
+                                    <rect x="2" y="12" width="2" height="2" />
+                                    <rect x="12" y="12" width="2" height="2" />
+                                    <path d="M5 3h6v10H5z" />
+                                    <path d="M3 5h10v6H3z" />
+                                    <rect x="7" y="7" width="2" height="2" fill="var(--surface-color)" />
                                 </svg>
                             </div>
                         </div>
                     </div>
                     <div class="mockup-tabs">
                         <div class="mockup-tab active">
-                            <svg class="pixel-icon" viewBox="0 0 16 16" width="10" height="10" fill="currentColor"><path d="M6 2h4v1H6zm4 1h1v1h-1zm1 1h1v3h-1zm-1 3h-1v1H6zm-1 1H4V8h2zm-2-1H3V4h1zm-1-3H2V3h1zm5-1V2H4v5h5V3z" /></svg> Search
+                            <svg class="pixel-icon" viewBox="0 0 16 16" width="10" height="10" fill="currentColor">
+                                <path
+                                    d="M6 2h4v1H6zm4 1h1v1h-1zm1 1h1v3h-1zm-1 3h-1v1H6zm-1 1H4V8h2zm-2-1H3V4h1zm-1-3H2V3h1zm5-1V2H4v5h5V3z" />
+                            </svg> Search
                         </div>
                         <div class="mockup-tab">
-                            <svg class="pixel-icon" viewBox="0 0 16 16" width="10" height="10" fill="currentColor"><path d="M7 0h2v2H7zm-2 2h2v2H5zm4 0h2v2H9zm-3 2h2v2H6zm4 0h2v2h-2zm-3 2h2v2H7zm4 0h2v2h-2zm-6 2h2v2H5zm8 0h2v2h-2zm-9 2h2v2H4zm10 0h2v2h-2zm-11 2h14v2H3zm2 2h6v1H5z" /></svg> Trending
+                            <svg class="pixel-icon" viewBox="0 0 16 16" width="10" height="10" fill="currentColor">
+                                <path
+                                    d="M7 0h2v2H7zm-2 2h2v2H5zm4 0h2v2H9zm-3 2h2v2H6zm4 0h2v2h-2zm-3 2h2v2H7zm4 0h2v2h-2zm-6 2h2v2H5zm8 0h2v2h-2zm-9 2h2v2H4zm10 0h2v2h-2zm-11 2h14v2H3zm2 2h6v1H5z" />
+                            </svg> Trending
                         </div>
                         <div class="mockup-tab">
-                            <svg class="pixel-icon" viewBox="0 0 16 16" width="10" height="10" fill="currentColor"><path d="M2 3h3v1H2zm3-1h2v1H5zm2 1h2v1H7zm2-1h2v1H9zm2 1h3v1h-3zm2 1h1v3h-1zm-1 3h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1H9zm-2 0h2v1H7zm-2-1h2v1H5zm-1-1h1v1H4zm-1-1h1v1H3zm-1-1h1v1H2zm-1-3h1v3H1zm0-3h1v3H1zm1-1h1v1H2z" /></svg> Favorites
+                            <svg class="pixel-icon" viewBox="0 0 16 16" width="10" height="10" fill="currentColor">
+                                <path
+                                    d="M2 3h3v1H2zm3-1h2v1H5zm2 1h2v1H7zm2-1h2v1H9zm2 1h3v1h-3zm2 1h1v3h-1zm-1 3h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1h-1zm-1 1h1v1H9zm-2 0h2v1H7zm-2-1h2v1H5zm-1-1h1v1H4zm-1-1h1v1H3zm-1-1h1v1H2zm-1-3h1v3H1zm0-3h1v3H1zm1-1h1v1H2z" />
+                            </svg> Favorites
                         </div>
                     </div>
                     <div class="mockup-grid">
-                        <div class="mockup-gif shimmer"></div>
-                        <div class="mockup-gif shimmer"></div>
-                        <div class="mockup-gif shimmer"></div>
-                        <div class="mockup-gif shimmer"></div>
-                        <div class="mockup-gif shimmer"></div>
-                        <div class="mockup-gif shimmer"></div>
+                        <div class="mockup-gif"><img
+                                src="https://static.klipy.com/ii/bea85337777ad0e23e63683391435543/bc/08/QoVL6YdA.gif"
+                                alt="Pikachu" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div class="mockup-gif"><img
+                                src="https://static.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/87/ad/71WOMbwke67fmBx.gif"
+                                alt="Totoro" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div class="mockup-gif"><img
+                                src="https://static.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/97/2d/jQzXfuxuaOkPuF.gif"
+                                alt="Sailor Moon" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div class="mockup-gif"><img
+                                src="https://static.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/23/6b/VeWu6SgFJglq1Qr.gif"
+                                alt="Spirited Away" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div class="mockup-gif"><img
+                                src="https://static.klipy.com/ii/4e7bea9f7a3371424e6c16ebc93252fe/9e/4a/elpEplt3w85mXTGpIc.gif"
+                                alt="Goku" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div class="mockup-gif"><img
+                                src="https://static.klipy.com/ii/4e7bea9f7a3371424e6c16ebc93252fe/60/55/TcxTBZImbDK2t2cqG.gif"
+                                alt="Naruto" style="width: 100%; height: 100%; object-fit: cover;"></div>
                     </div>
                 </div>
             </div>
@@ -879,7 +941,8 @@
                     <div class="feature-icon">⌨️</div>
                     <h3>Keyboard Shortcut</h3>
                     <p>Open the popup instantly with <span class="kbd">Ctrl</span> + <span class="kbd">Shift</span> +
-                        <span class="kbd">Y</span>.</p>
+                        <span class="kbd">Y</span>.
+                    </p>
                 </div>
 
                 <div class="feature-card">
@@ -999,10 +1062,60 @@
         </div>
     </footer>
 
-    <!-- Client-side script for Theme Toggle persistence -->
+    <!-- Client-side script for Theme Toggle persistence & Sound FX -->
     <script>
+        // ===== Retro Gaming Sound Synth Engine (Web Audio API) =====
+        const RetroAudio = {
+            ctx: null,
+            init() {
+                if (!this.ctx) {
+                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+            },
+            play(soundType) {
+                try {
+                    this.init();
+                    if (this.ctx.state === 'suspended') {
+                        this.ctx.resume();
+                    }
+                    const now = this.ctx.currentTime;
+
+                    const osc = this.ctx.createOscillator();
+                    const gainNode = this.ctx.createGain();
+                    osc.connect(gainNode);
+                    gainNode.connect(this.ctx.destination);
+
+                    if (soundType === 'click') {
+                        osc.type = 'square';
+                        osc.frequency.setValueAtTime(600, now);
+                        osc.frequency.exponentialRampToValueAtTime(150, now + 0.08);
+
+                        gainNode.gain.setValueAtTime(0.03, now);
+                        gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+
+                        osc.start(now);
+                        osc.stop(now + 0.08);
+                    } else if (soundType === 'success') {
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(261.63, now); // C4
+                        osc.frequency.setValueAtTime(329.63, now + 0.08); // E4
+                        osc.frequency.setValueAtTime(392.00, now + 0.16); // G4
+                        osc.frequency.setValueAtTime(523.25, now + 0.24); // C5
+
+                        gainNode.gain.setValueAtTime(0.04, now);
+                        gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+
+                        osc.start(now);
+                        osc.stop(now + 0.4);
+                    }
+                } catch (error) {
+                    console.warn('RetroAudio failed to play:', error);
+                }
+            }
+        };
+
         const toggleBtn = document.getElementById('themeToggle');
-        
+
         // Load default preference (defaulting to dark mode like original web page)
         let mode = localStorage.getItem('docsTheme') || 'dark';
         if (mode === 'dark') {
@@ -1015,6 +1128,21 @@
             const isDark = document.body.classList.toggle('dark-mode');
             document.body.classList.toggle('light-mode', !isDark);
             localStorage.setItem('docsTheme', isDark ? 'dark' : 'light');
+            RetroAudio.play('click');
+        });
+
+        // Bind all interactive elements to sound effects
+        document.querySelectorAll('a, button, .mockup-btn, .mockup-tab, .trending-tag').forEach(el => {
+            el.addEventListener('click', (e) => {
+                // Do not interfere with theme toggle sound since it has its own click event
+                if (el.id === 'themeToggle') return;
+
+                if (el.classList.contains('btn-primary') || el.classList.contains('nav-cta')) {
+                    RetroAudio.play('success');
+                } else {
+                    RetroAudio.play('click');
+                }
+            });
         });
     </script>
 </body>

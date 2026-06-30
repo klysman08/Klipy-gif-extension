@@ -83,28 +83,56 @@ function debounce(func, wait) {
 const debouncedSearch = debounce(initiateSearch, 300);
 
 // ===== Event Listeners =====
-el.searchButton.addEventListener('click', debouncedSearch);
+el.searchButton.addEventListener('click', () => {
+    RetroAudio.play('click');
+    debouncedSearch();
+});
 el.searchQuery.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') debouncedSearch();
+    if (event.key === 'Enter') {
+        RetroAudio.play('click');
+        debouncedSearch();
+    }
 });
 
 el.modeToggle.addEventListener('click', toggleMode);
-el.favoritesButton.addEventListener('click', () => switchTab('favorites'));
-el.closeModal.addEventListener('click', closeModal);
+el.favoritesButton.addEventListener('click', () => {
+    RetroAudio.play('click');
+    switchTab('favorites');
+});
+el.closeModal.addEventListener('click', () => {
+    RetroAudio.play('click');
+    closeModal();
+});
 el.copyLinkBtn.addEventListener('click', copyGifLink);
 el.downloadBtn.addEventListener('click', downloadGif);
-el.settingsButton.addEventListener('click', () => chrome.runtime.openOptionsPage());
+el.settingsButton.addEventListener('click', () => {
+    RetroAudio.play('click');
+    chrome.runtime.openOptionsPage();
+});
 el.openSettingsLink.addEventListener('click', (e) => {
     e.preventDefault();
+    RetroAudio.play('click');
     chrome.runtime.openOptionsPage();
 });
 
-el.clearFavoritesBtn.addEventListener('click', clearAllFavorites);
+el.clearFavoritesBtn.addEventListener('click', () => {
+    RetroAudio.play('unfavorite');
+    clearAllFavorites();
+});
 
 // Tab switching
-el.tabSearch.addEventListener('click', () => switchTab('search'));
-el.tabTrending.addEventListener('click', () => switchTab('trending'));
-el.tabFavorites.addEventListener('click', () => switchTab('favorites'));
+el.tabSearch.addEventListener('click', () => {
+    RetroAudio.play('click');
+    switchTab('search');
+});
+el.tabTrending.addEventListener('click', () => {
+    RetroAudio.play('click');
+    switchTab('trending');
+});
+el.tabFavorites.addEventListener('click', () => {
+    RetroAudio.play('click');
+    switchTab('favorites');
+});
 
 // Infinite scroll
 window.addEventListener('scroll', () => {
@@ -346,6 +374,7 @@ function createGifElement(gif) {
         favBtn.title = newIsFav ? 'Remove from favorites' : 'Add to favorites';
         updateFavBadge();
 
+        RetroAudio.play(newIsFav ? 'favorite' : 'unfavorite');
         showToast(newIsFav ? 'Added to favorites ❤️' : 'Removed from favorites', 'success');
 
         // If in favorites view, animate removal
@@ -530,6 +559,7 @@ async function copyGifLink() {
 
     try {
         await navigator.clipboard.writeText(url);
+        RetroAudio.play('success');
         el.copyLinkBtn.innerHTML = '✅ Copied!';
         el.copyLinkBtn.classList.add('success');
         showToast('Link copied to clipboard!', 'success');
@@ -563,6 +593,7 @@ async function downloadGif() {
         document.body.removeChild(a);
         URL.revokeObjectURL(blobUrl);
 
+        RetroAudio.play('success');
         el.downloadBtn.innerHTML = '✅ Downloaded!';
         showToast('GIF downloaded!', 'success');
         setTimeout(() => {
@@ -687,5 +718,77 @@ function toggleMode() {
     const isDark = document.body.classList.toggle('dark-mode');
     document.body.classList.toggle('light-mode', !isDark);
     saveState();
+    RetroAudio.play('click');
     showToast(isDark ? 'Dark mode enabled 🌙' : 'Light mode enabled ☀️', 'success');
 }
+
+// ===== Retro Gaming Sound Synth Engine (Web Audio API) =====
+const RetroAudio = {
+    ctx: null,
+    init() {
+        if (!this.ctx) {
+            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+    },
+    play(soundType) {
+        try {
+            this.init();
+            if (this.ctx.state === 'suspended') {
+                this.ctx.resume();
+            }
+            const now = this.ctx.currentTime;
+            
+            const osc = this.ctx.createOscillator();
+            const gainNode = this.ctx.createGain();
+            osc.connect(gainNode);
+            gainNode.connect(this.ctx.destination);
+            
+            if (soundType === 'click') {
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(600, now);
+                osc.frequency.exponentialRampToValueAtTime(150, now + 0.08);
+                
+                gainNode.gain.setValueAtTime(0.03, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                
+                osc.start(now);
+                osc.stop(now + 0.08);
+            } else if (soundType === 'success') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(261.63, now); // C4
+                osc.frequency.setValueAtTime(329.63, now + 0.08); // E4
+                osc.frequency.setValueAtTime(392.00, now + 0.16); // G4
+                osc.frequency.setValueAtTime(523.25, now + 0.24); // C5
+                
+                gainNode.gain.setValueAtTime(0.04, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+                
+                osc.start(now);
+                osc.stop(now + 0.4);
+            } else if (soundType === 'favorite') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(392.00, now); // G4
+                osc.frequency.setValueAtTime(587.33, now + 0.06); // D5
+                osc.frequency.setValueAtTime(880.00, now + 0.12); // A5
+                
+                gainNode.gain.setValueAtTime(0.03, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+                
+                osc.start(now);
+                osc.stop(now + 0.25);
+            } else if (soundType === 'unfavorite') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(600, now);
+                osc.frequency.exponentialRampToValueAtTime(100, now + 0.12);
+                
+                gainNode.gain.setValueAtTime(0.02, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+                
+                osc.start(now);
+                osc.stop(now + 0.12);
+            }
+        } catch (error) {
+            console.warn('RetroAudio failed to play:', error);
+        }
+    }
+};

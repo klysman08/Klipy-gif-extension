@@ -41,6 +41,7 @@ document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 function toggleTheme() {
     const isDark = document.body.classList.toggle('dark-mode');
     document.body.classList.toggle('light-mode', !isDark);
+    RetroAudio.play('click');
 
     // Sync theme preference with popup state
     try {
@@ -68,6 +69,7 @@ function saveOptions() {
     const apiKey = document.getElementById('apiKey').value.trim();
 
     if (!apiKey) {
+        RetroAudio.play('unfavorite');
         showStatus('Please enter an API key.', 'error');
         return;
     }
@@ -75,6 +77,7 @@ function saveOptions() {
     chrome.storage.sync.set({
         klipyApiKey: apiKey
     }, function () {
+        RetroAudio.play('success');
         showStatus('✅ Settings saved successfully!', 'success');
 
         setTimeout(function () {
@@ -100,3 +103,74 @@ function showStatus(message, type) {
     statusEl.textContent = message;
     statusEl.className = `status-${type}`;
 }
+
+// ===== Retro Gaming Sound Synth Engine (Web Audio API) =====
+const RetroAudio = {
+    ctx: null,
+    init() {
+        if (!this.ctx) {
+            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+    },
+    play(soundType) {
+        try {
+            this.init();
+            if (this.ctx.state === 'suspended') {
+                this.ctx.resume();
+            }
+            const now = this.ctx.currentTime;
+            
+            const osc = this.ctx.createOscillator();
+            const gainNode = this.ctx.createGain();
+            osc.connect(gainNode);
+            gainNode.connect(this.ctx.destination);
+            
+            if (soundType === 'click') {
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(600, now);
+                osc.frequency.exponentialRampToValueAtTime(150, now + 0.08);
+                
+                gainNode.gain.setValueAtTime(0.03, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                
+                osc.start(now);
+                osc.stop(now + 0.08);
+            } else if (soundType === 'success') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(261.63, now); // C4
+                osc.frequency.setValueAtTime(329.63, now + 0.08); // E4
+                osc.frequency.setValueAtTime(392.00, now + 0.16); // G4
+                osc.frequency.setValueAtTime(523.25, now + 0.24); // C5
+                
+                gainNode.gain.setValueAtTime(0.04, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+                
+                osc.start(now);
+                osc.stop(now + 0.4);
+            } else if (soundType === 'favorite') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(392.00, now); // G4
+                osc.frequency.setValueAtTime(587.33, now + 0.06); // D5
+                osc.frequency.setValueAtTime(880.00, now + 0.12); // A5
+                
+                gainNode.gain.setValueAtTime(0.03, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+                
+                osc.start(now);
+                osc.stop(now + 0.25);
+            } else if (soundType === 'unfavorite') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(600, now);
+                osc.frequency.exponentialRampToValueAtTime(100, now + 0.12);
+                
+                gainNode.gain.setValueAtTime(0.02, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+                
+                osc.start(now);
+                osc.stop(now + 0.12);
+            }
+        } catch (error) {
+            console.warn('RetroAudio failed to play:', error);
+        }
+    }
+};
